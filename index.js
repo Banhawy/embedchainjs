@@ -1,8 +1,8 @@
-const { EmbedChainApp } = require("./embedchain/embedchain");
+const { EmbedChainApp } = require('./embedchain/embedchain.ts');
 
-async function App() {
-  const app = new EmbedChainApp();
-  await app.init_app;
+async function App(appConfig = {}) {
+  const app = new EmbedChainApp(appConfig);
+  await app.initApp;
   return app;
 }
 

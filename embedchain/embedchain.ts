@@ -21,6 +21,7 @@ import type {
   Method,
   RemoteInput,
 } from './models';
+import type { EmbedChainAppConfig } from './models/Input';
 import { ChromaDB } from './vectordb';
 import type { BaseVectorDB } from './vectordb/BaseVectorDb';
 
@@ -42,14 +43,14 @@ class EmbedChain {
 
   sId: string; // sessionId
 
-  constructor(db?: BaseVectorDB, collectMetrics: boolean = true) {
-    if (!db) {
+  constructor(config: EmbedChainAppConfig) {
+    if (!config.db) {
       this.initApp = this.setupChroma();
     } else {
-      this.initApp = this.setupOther(db);
+      this.initApp = this.setupOther(config.db);
     }
 
-    this.collectMetrics = collectMetrics;
+    this.collectMetrics = config.collectMetrics ?? true;
 
     // Send anonymous telemetry
     this.sId = uuidv4();
